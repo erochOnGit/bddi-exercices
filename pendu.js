@@ -10,7 +10,9 @@ const rl = readline.createInterface({
 // La fonction Game a terminer (ça se corse)
 
 const WORD_LIST = ['chevre', 'vache']
-
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 class Game {
   constructor() {
     let letters = [], // letters entered by user
@@ -20,8 +22,9 @@ class Game {
 
     function init() {
       lives = 5
-
-      word = // TODO: récupérer un mot random depuis WORD_LIST (1 ligne)
+      console.log("randomword : ",WORD_LIST[getRandomInt(WORD_LIST.length)])
+      word = WORD_LIST[getRandomInt(WORD_LIST.length)]
+      // TODO: récupérer un mot random depuis WORD_LIST (1 ligne)
         letters = []
       // Count without duplicated
       missing = Array.prototype.filter.call(word, (letter, i) => {
@@ -36,6 +39,9 @@ class Game {
       // - modifier `lives` et `missing` en conséquence
       // - ne retourne rien
       // - (6 lignes)
+     letters.filter(oneLetter=>(letter===oneLetter)).length>1 ? console.log("déjà rouvé") : console.log("pas trouvé")||letters.push(letter)
+      
+
     }
 
     function displayWord() {
@@ -45,6 +51,11 @@ class Game {
       // - exemple : v_ch_e
       // - Utiliser une boucle for et la concaténation
       // - (9 lignes)
+      let hiddenWord = word.split("")
+                           .map(letter => letters.find(foundLetter=>foundLetter===letter) ? letter : "_")
+                           .join()
+                           .replace(/,/g, "");
+      return hiddenWord
     }
 
     function prompt(cb) {
@@ -53,7 +64,8 @@ class Game {
     }
 
     function onAnswer(answer) {
-      addLetter(/* TODO: appeler la fonction addLetter en envoyant la première lettre de `answer` (1 ligne) */)
+      console.log(answer[0])
+      addLetter(answer[0])
 
       if (missing > 0 && lives > 0) {
         prompt(onAnswer)
