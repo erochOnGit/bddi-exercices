@@ -30,6 +30,7 @@ class Game {
       missing = Array.prototype.filter.call(word, (letter, i) => {
         return word.indexOf(letter) == i
       }).length
+      console.log("missinginit",missing)
     }
 
     function addLetter(letter) {
@@ -39,9 +40,12 @@ class Game {
       // - modifier `lives` et `missing` en conséquence
       // - ne retourne rien
       // - (6 lignes)
-     letters.filter(oneLetter=>(letter===oneLetter)).length>1 ? console.log("déjà rouvé") : console.log("pas trouvé")||letters.push(letter)
-      
-
+     letters.filter(oneLetter=>(letter===oneLetter)).length>1 ? console.log("alreadyfound"): console.log("pas trouvé")||letters.push(letter)
+     missing = 0;
+     word.split("")
+     .map(letter => letters.find(foundLetter=>foundLetter===letter) ? null: missing++)
+     console.log("missing letters : ",missing)
+     
     }
 
     function displayWord() {
